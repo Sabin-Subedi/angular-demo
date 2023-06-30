@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { HousingLocation } from '../housinglocation';
+import { HousingService } from '../housing.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,9 @@ import { HousingLocation } from '../housinglocation';
         <button class="primary" type="button">Search</button>
       </form>
     </section>
-    <section>
+    <section class="results">
       <app-housing-location
+        *ngFor="let housingLocation of housingLocationList"
         [housingLocation]="housingLocation"
       ></app-housing-location>
     </section>
@@ -23,15 +25,9 @@ import { HousingLocation } from '../housinglocation';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  housingLocation: HousingLocation = {
-    id: 1,
-    name: 'The Bay Club',
-    city: 'San Francisco',
-    state: 'CA',
-    photo:
-      'https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG91c2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1000&h=1000&q=100',
-    availableUnits: 3,
-    wifi: true,
-    laundry: true,
-  };
+  housingLocationList: HousingLocation[] = [];
+  housingService: HousingService = inject(HousingService);
+  constructor() {
+    this.housingLocationList = this.housingService.housingLocationList;
+  }
 }
