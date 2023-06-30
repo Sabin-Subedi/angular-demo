@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
+import { HomeComponent } from './home/home.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  standalone: true,
+  imports: [HomeComponent],
+  template: `<h1>Default</h1>`,
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'my-chat-app';
+  title = 'default';
 }
+
+/*
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+*/
